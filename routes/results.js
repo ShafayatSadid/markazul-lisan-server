@@ -44,15 +44,22 @@ router.get("/:id", async (req, res) => {
 
 // POST /results — নতুন result
 // router.post("/", verifyToken, requireAdmin, async (req, res) => {
+
 router.post("/", async (req, res) => {
   try {
-    const { studentName, studentImage, courseName, comment } = req.body;
+    const { studentName, studentImage, courseName, comment, rating } = req.body;
+
+    let ratingNum = rating !== undefined ? Number(rating) : 5;
+    if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+      ratingNum = 5;
+    }
 
     const newResult = {
       studentName,
       studentImage: studentImage || "",
       courseName: courseName || "",
       comment: comment || "",
+      rating: ratingNum,
       createdAt: new Date(),
     };
 
@@ -80,11 +87,19 @@ router.patch("/:id", async (req, res) => {
       return res.status(400).send({ message: "Invalid id" });
     }
 
-    const allowed = ["studentName", "studentImage", "courseName", "comment"];
+    const allowed = ["studentName", "studentImage", "courseName", "comment", "rating"];
 
     const updateDoc = {};
     for (const key of allowed) {
       if (req.body[key] !== undefined) updateDoc[key] = req.body[key];
+    }
+
+    if (updateDoc.rating !== undefined) {
+      let ratingNum = Number(updateDoc.rating);
+      if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+        ratingNum = 5;
+      }
+      updateDoc.rating = ratingNum;
     }
 
     const collection = await getCollection("results");

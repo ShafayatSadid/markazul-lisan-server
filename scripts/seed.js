@@ -197,21 +197,31 @@ async function seed() {
 
   // ---------- Results ----------
   const results = [
-    {
-      studentName: "Abdullah Rahman",
-      studentImage: "",
-      courseName: "Basic Arabic",
-      comment: "Alhamdulillah, এখন আমি কুরআন দেখে পড়তে পারি।",
-      createdAt: new Date(),
-    },
-    {
-      studentName: "Yusuf Ahmed",
-      studentImage: "",
-      courseName: "Quran Reading",
-      comment: "Alhamdulillah, তিলাওয়াত অনেক উন্নত হয়েছে।",
-      createdAt: new Date(),
-    },
-  ];
+  {
+    studentName: "Abdullah Rahman",
+    studentImage: "",
+    courseName: "Basic Arabic",
+    comment: "Alhamdulillah, এখন আমি কুরআন দেখে পড়তে পারি।",
+    rating: 5,
+    createdAt: new Date(),
+  },
+  {
+    studentName: "Yusuf Ahmed",
+    studentImage: "",
+    courseName: "Quran Reading",
+    comment: "Alhamdulillah, তিলাওয়াত অনেক উন্নত হয়েছে।",
+    rating: 5,
+    createdAt: new Date(),
+  },
+  {
+    studentName: "Bilal Khan",
+    studentImage: "",
+    courseName: "Hadith Studies",
+    comment: "খুব ভালো কোর্স, শিক্ষকরা অত্যন্ত আন্তরিক।",
+    rating: 4,
+    createdAt: new Date(),
+  },
+];
   await resultsCollection.insertMany(results);
   console.log("Results inserted");
 
