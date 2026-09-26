@@ -5,7 +5,6 @@ const JWKS = createRemoteJWKSet(
   new URL(`${process.env.CLIENT_URL}/api/auth/jwks`)
 );
 
-// Token verify
 const verifyToken = async (req, res, next) => {
   const header = req?.headers?.authorization;
 
@@ -28,7 +27,6 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-// Admin check
 const requireAdmin = (req, res, next) => {
   if (req.user?.role !== "admin") {
     return res.status(403).json({ message: "Admin only" });

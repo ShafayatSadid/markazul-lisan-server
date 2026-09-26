@@ -2,7 +2,7 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 const { getCollection } = require("../lib/db");
-// const { verifyToken, requireAdmin } = require("../middleware/auth");
+const { verifyToken, requireAdmin } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
 
 // POST /teachers — নতুন teacher
 // router.post("/", verifyToken, requireAdmin, async (req, res) => {
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, requireAdmin, async (req, res) => {
   try {
     const {
       name,
@@ -90,7 +90,7 @@ router.post("/", async (req, res) => {
 
 // PATCH /teachers/:id — update
 // router.patch("/:id", verifyToken, requireAdmin, async (req, res) => {
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verifyToken, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -138,7 +138,7 @@ router.patch("/:id", async (req, res) => {
 
 // DELETE /teachers/:id
 // router.delete("/:id", verifyToken, requireAdmin, async (req, res) => {
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
 
